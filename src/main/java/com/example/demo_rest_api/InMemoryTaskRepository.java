@@ -10,10 +10,7 @@ import java.util.UUID;
 @Repository
 public class InMemoryTaskRepository implements TaskRepository {
 
-    private final List<Task> tasks = new LinkedList<>() {{ //Not for concurrent access | TODO: replace LinkedList with Collections.synchronizedList?
-        this.add(new Task("First task"));
-        this.add(new Task("Second task"));
-    }};
+    private final List<Task> tasks = new LinkedList<>();
 
     @Override
     public List<Task> findAll() {
@@ -35,5 +32,9 @@ public class InMemoryTaskRepository implements TaskRepository {
         return this.tasks.stream()
                 .filter(task -> task.id().equals(id))
                 .findFirst();
+    }
+
+    public List<Task> getListOfTasks() {
+        return tasks;
     }
 }
